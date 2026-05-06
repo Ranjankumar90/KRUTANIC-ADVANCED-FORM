@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Krutanic – 6-Month Placement Acceleration Program</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f7f7f7;
+    --card: #ffffff;
+    --border: #e5e5e5;
+    --accent: #e8421a;
+    --accent-dark: #c23010;
+    --accent-light: #fff0eb;
+    --black: #111111;
+    --dark: #1a1a1a;
+    --mid: #555555;
+    --muted: #999999;
+    --success: #16a34a;
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    background: #fff;
+    border-bottom: 2px solid var(--border);
+    padding: 0 48px;
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  }
+
+  .logo-wrap { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .logo-icon { width: 52px; height: 52px; flex-shrink: 0; }
+  .logo-text-block { display: flex; flex-direction: column; line-height: 1; }
+  .logo-name { font-family: 'Barlow', sans-serif; font-weight: 900; font-size: 26px; color: var(--black); letter-spacing: 1px; text-transform: uppercase; }
+  .logo-tagline { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 9px; color: var(--accent); letter-spacing: 2.5px; text-transform: uppercase; margin-top: 3px; }
+
+  .nav-right { display: flex; align-items: center; gap: 14px; }
+  /* FIX 1: Nav badge — use text instead of emoji to avoid rendering issues */
+  .nav-badge { background: var(--accent-light); color: var(--accent); font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 30px; border: 1.5px solid rgba(232,66,26,0.2); display: flex; align-items: center; gap: 6px; }
+  .nav-badge-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse 1.5s infinite; flex-shrink: 0; }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(0.85); } }
+  .nav-cta { background: var(--accent); color: #fff; font-size: 13px; font-weight: 800; padding: 9px 22px; border-radius: 8px; text-decoration: none; font-family: 'Barlow', sans-serif; letter-spacing: 0.5px; text-transform: uppercase; transition: all 0.2s; }
+  .nav-cta:hover { background: var(--accent-dark); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero { background: var(--black); position: relative; overflow: hidden; padding: 80px 48px 90px; }
+  .hero::before { content: ''; position: absolute; top: 0; right: -80px; width: 42%; height: 100%; background: linear-gradient(135deg, var(--accent) 0%, #c23010 100%); clip-path: polygon(22% 0, 100% 0, 100% 100%, 0% 100%); z-index: 0; }
+
+  .hero-inner { position: relative; z-index: 5; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 360px; gap: 60px; align-items: center; }
+
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(232,66,26,0.2); border: 1px solid rgba(232,66,26,0.4); color: #ff7a52; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 30px; margin-bottom: 22px; animation: fadeUp 0.5s ease forwards; }
+
+  .hero-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(42px, 5.5vw, 70px); font-weight: 900; color: #fff; line-height: 1.0; letter-spacing: -1px; margin-bottom: 20px; text-transform: uppercase; animation: fadeUp 0.5s 0.1s ease forwards; opacity: 0; }
+  .hero-title .ora { color: var(--accent); }
+
+  .hero-desc { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.7; max-width: 460px; margin-bottom: 36px; animation: fadeUp 0.5s 0.2s ease forwards; opacity: 0; }
+
+  .hero-actions { display: flex; align-items: center; gap: 16px; animation: fadeUp 0.5s 0.3s ease forwards; opacity: 0; }
+
+  .btn-hero { background: var(--accent); color: #fff; padding: 15px 36px; border-radius: 8px; font-family: 'Barlow', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 0.5px; text-transform: uppercase; border: none; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 24px rgba(232,66,26,0.4); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-hero:hover { background: var(--accent-dark); transform: translateY(-2px); }
+
+  .hero-note { font-size: 13px; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 6px; }
+
+  /* HERO CARD */
+  .hero-card { background: #fff; border-radius: 18px; padding: 28px; box-shadow: 0 24px 60px rgba(0,0,0,0.3); animation: fadeUp 0.5s 0.2s ease forwards; opacity: 0; }
+  .hc-title { font-family: 'Barlow', sans-serif; font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+
+  .hc-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding: 12px; background: #fff8f5; border: 1px solid rgba(232,66,26,0.12); border-radius: 10px; }
+  .hc-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .hc-t strong { display: block; font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 14px; color: var(--dark); }
+  .hc-t span { font-size: 11px; color: var(--muted); }
+
+  .hc-div { height: 1px; background: var(--border); margin: 16px 0; }
+
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-box { background: var(--surface); border-radius: 8px; padding: 12px; text-align: center; }
+  .stat-n { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 3px; }
+  .stat-l { font-size: 10px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* PHASES SECTION */
+  .phases-slide { background: var(--surface); padding: 80px 48px; border-top: 3px solid var(--accent); }
+  .slide-inner { max-width: 1100px; margin: 0 auto; }
+
+  .slide-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; flex-wrap: wrap; gap: 20px; }
+
+  .slide-label { font-family: 'Barlow', sans-serif; font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .slide-label::before { content: ''; display: block; width: 24px; height: 2px; background: var(--accent); }
+
+  .slide-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(30px, 4vw, 50px); font-weight: 900; color: var(--black); text-transform: uppercase; letter-spacing: -0.5px; line-height: 1.05; }
+  .slide-title span { color: var(--accent); }
+
+  .btn-dark { background: var(--black); color: #fff; padding: 13px 28px; border-radius: 8px; font-family: 'Barlow', sans-serif; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
+  .btn-dark:hover { background: var(--accent); transform: translateY(-2px); }
+
+  /* Phases timeline */
+  .phases-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+  .phases-row::before { content: ''; position: absolute; top: 40px; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-dark)); z-index: 0; }
+
+  .ph-col { padding: 0 10px; }
+
+  .ph-dot { width: 80px; height: 80px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; color: #fff; text-align: center; line-height: 1.2; position: relative; z-index: 2; margin: 0 auto 24px; box-shadow: 0 8px 24px rgba(232,66,26,0.35); transition: transform 0.3s; }
+  .ph-col:hover .ph-dot { transform: scale(1.08); }
+
+  .ph-card { background: #fff; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 16px; transition: all 0.3s; position: relative; overflow: hidden; }
+  .ph-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-dark)); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+  .ph-col:hover .ph-card { border-color: rgba(232,66,26,0.3); box-shadow: 0 12px 36px rgba(0,0,0,0.1); transform: translateY(-4px); }
+  .ph-col:hover .ph-card::before { transform: scaleX(1); }
+
+  .ph-month { font-family: 'Barlow', sans-serif; font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 5px; }
+  .ph-name { font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 800; color: var(--black); margin-bottom: 8px; line-height: 1.3; }
+  .ph-desc { font-size: 12px; color: var(--mid); line-height: 1.6; margin-bottom: 12px; }
+  .ph-bullets { list-style: none; }
+  .ph-bullets li { font-size: 11.5px; color: var(--mid); padding: 2px 0 2px 14px; position: relative; line-height: 1.4; }
+  .ph-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 10px; top: 3px; }
+
+  /* GUARANTEE STRIP */
+  .g-strip { background: var(--accent); padding: 48px; }
+  .g-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+  .g-left { display: flex; align-items: center; gap: 24px; }
+  .g-shield { font-size: 52px; line-height: 1; }
+  .g-copy h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 34px; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .g-copy p { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.5; max-width: 460px; }
+  .g-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+  .g-badge { background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3); color: #fff; font-size: 12px; font-weight: 700; padding: 8px 16px; border-radius: 30px; font-family: 'Barlow', sans-serif; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; }
+
+  /* FORM */
+  .form-section { background: var(--bg); padding: 80px 48px 100px; }
+  .form-section-inner { max-width: 740px; margin: 0 auto; }
+
+  .form-section-header { text-align: center; margin-bottom: 44px; }
+  .form-section-header h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 40px; font-weight: 900; color: var(--black); text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .form-section-header h2 span { color: var(--accent); }
+  .form-section-header p { font-size: 15px; color: var(--muted); line-height: 1.6; }
+
+  .form-card { background: #fff; border: 1.5px solid var(--border); border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
+
+  .fc-header { background: var(--black); padding: 26px 36px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+  .fc-header-left h3 { font-family: 'Barlow', sans-serif; font-weight: 800; font-size: 17px; color: #fff; text-transform: uppercase; margin-bottom: 3px; }
+  .fc-header-left p { font-size: 12px; color: rgba(255,255,255,0.45); }
+  .seats-badge { background: rgba(232,66,26,0.25); border: 1px solid rgba(232,66,26,0.5); color: #ff7a52; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 8px; font-family: 'Barlow', sans-serif; }
+
+  /* step bar */
+  .step-bar { display: flex; background: var(--surface); border-bottom: 1.5px solid var(--border); }
+  .step-tab { flex: 1; padding: 14px 20px; display: flex; align-items: center; gap: 12px; border-right: 1.5px solid var(--border); position: relative; }
+  .step-tab:last-child { border-right: none; }
+  .step-tab.active { background: #fff; }
+  .step-tab.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--accent); }
+  .snum { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; font-family: 'Barlow', sans-serif; background: var(--border); color: var(--muted); flex-shrink: 0; transition: all 0.3s; }
+  .step-tab.active .snum { background: var(--accent); color: #fff; box-shadow: 0 4px 12px rgba(232,66,26,0.3); }
+  .step-tab.done .snum { background: var(--success); color: #fff; }
+  .stab-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; margin-bottom: 1px; }
+  .stab-name { font-family: 'Barlow', sans-serif; font-size: 14px; font-weight: 700; color: var(--dark); }
+  .step-tab:not(.active) .stab-name { color: var(--muted); }
+
+  .form-body { padding: 34px 36px; }
+  .f-step { display: none; animation: fadeUp 0.35s ease; }
+  .f-step.active { display: block; }
+
+  .sec-title { font-family: 'Barlow', sans-serif; font-size: 13px; font-weight: 700; color: var(--black); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 22px; padding-bottom: 12px; border-bottom: 1.5px solid var(--border); }
+
+  .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .frow.full { grid-template-columns: 1fr; }
+  .fg { display: flex; flex-direction: column; gap: 6px; }
+
+  .fl { font-size: 10.5px; font-weight: 700; color: var(--mid); text-transform: uppercase; letter-spacing: 0.8px; font-family: 'Barlow', sans-serif; }
+  .fl em { color: var(--accent); font-style: normal; }
+
+  input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+    background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 11px 14px; font-size: 14px; color: var(--dark); font-family: 'DM Sans', sans-serif; transition: all 0.2s; width: 100%; appearance: none; -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(232,66,26,0.1); }
+  input::placeholder, textarea::placeholder { color: #bbb; }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; cursor: pointer; }
+  select option { background: #fff; color: var(--dark); }
+  textarea { resize: vertical; min-height: 80px; }
+
+  /* radio cards */
+  .rl { font-size: 10.5px; font-weight: 700; color: var(--mid); text-transform: uppercase; letter-spacing: 0.8px; font-family: 'Barlow', sans-serif; margin-bottom: 9px; margin-top: 4px; }
+  .rl em { color: var(--accent); font-style: normal; }
+  .rgrid { display: grid; gap: 8px; margin-bottom: 14px; }
+  .rgrid.c2 { grid-template-columns: 1fr 1fr; }
+  .rgrid.c3 { grid-template-columns: 1fr 1fr 1fr; }
+  .rc input { display: none; }
+  .rc label { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 14px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--mid); transition: all 0.2s; line-height: 1.3; }
+  .rc label::before { content: ''; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; transition: all 0.2s; background: #fff; }
+  .rc input:checked + label { border-color: var(--accent); background: var(--accent-light); color: var(--dark); }
+  .rc input:checked + label::before { border-color: var(--accent); background: var(--accent); box-shadow: inset 0 0 0 3px rgba(255,255,255,0.5); }
+
+  /* checkbox style (same visual as radio but square) */
+  .rc input[type="checkbox"] + label::before { border-radius: 4px; }
+  .rc input[type="checkbox"]:checked + label { border-color: var(--accent); background: var(--accent-light); color: var(--dark); }
+  .rc input[type="checkbox"]:checked + label::before { border-color: var(--accent); background: var(--accent); box-shadow: inset 0 0 0 3px rgba(255,255,255,0.5); }
+
+  /* paid acknowledgement */
+  .paid-ack-wrap { background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 16px; margin: 20px 0 6px; }
+  .paid-ack-box { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .paid-ack-box p { font-size: 12.5px; color: var(--mid); line-height: 1.5; }
+  .paid-ack-box p strong { color: var(--dark); }
+  .ack-check-label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 13px; color: var(--dark); font-weight: 500; line-height: 1.4; }
+  .ack-check-label input[type="checkbox"] { display: none; }
+  .ack-custom-check { width: 18px; height: 18px; min-width: 18px; border: 2px solid var(--border); border-radius: 4px; background: #fff; transition: all 0.2s; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+  .ack-check-label input:checked ~ .ack-custom-check { background: var(--accent); border-color: var(--accent); }
+  .ack-check-label input:checked ~ .ack-custom-check::after { content: ''; display: block; width: 5px; height: 9px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); }
+  .ack-check-label.err-ack .ack-custom-check { border-color: #dc2626; background: #fff8f8; }
+
+  .paid-notice { display: flex; align-items: center; gap: 10px; background: var(--surface); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; margin-bottom: 14px; }
+  .paid-notice-icon { width: 32px; height: 32px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .paid-notice-icon svg { width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .paid-notice p { font-size: 12.5px; color: var(--mid); line-height: 1.5; }
+  .paid-notice p strong { color: var(--dark); font-weight: 700; }
+
+  .fe { font-size: 11px; color: #dc2626; margin-top: 3px; display: none; }
+  input.err, select.err, textarea.err { border-color: #dc2626 !important; background: #fff8f8 !important; }
+
+  .fnav { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; padding-top: 22px; border-top: 1.5px solid var(--border); gap: 12px; }
+  .btn-back-f { background: transparent; border: 1.5px solid var(--border); color: var(--mid); padding: 10px 22px; border-radius: 8px; font-size: 12px; font-weight: 700; font-family: 'Barlow', sans-serif; cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.5px; }
+  .btn-back-f:hover { border-color: var(--dark); color: var(--dark); }
+  .btn-next-f { background: var(--accent); border: none; color: #fff; padding: 12px 30px; border-radius: 8px; font-size: 13px; font-weight: 800; font-family: 'Barlow', sans-serif; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; box-shadow: 0 6px 20px rgba(232,66,26,0.3); }
+  .btn-next-f:hover { background: var(--accent-dark); transform: translateY(-2px); }
+  .btn-submit-f { background: var(--black); border: none; color: #fff; padding: 15px 0; border-radius: 10px; font-size: 15px; font-weight: 800; font-family: 'Barlow', sans-serif; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; box-shadow: 0 8px 24px rgba(0,0,0,0.15); margin-top: 24px; }
+  .btn-submit-f:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(232,66,26,0.4); }
+
+  /* success */
+  .success-view { display: none; text-align: center; padding: 56px 36px; }
+  .suc-icon { width: 72px; height: 72px; background: linear-gradient(135deg, var(--success), #15803d); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 22px; box-shadow: 0 12px 32px rgba(22,163,74,0.35); animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+  .suc-title { font-family: 'Barlow Condensed', sans-serif; font-size: 34px; font-weight: 900; text-transform: uppercase; color: var(--black); margin-bottom: 10px; }
+  .suc-sub { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 400px; margin: 0 auto 24px; }
+  .suc-tag { display: inline-flex; align-items: center; gap: 8px; background: #f0fdf4; border: 1px solid #bbf7d0; color: var(--success); font-size: 12px; font-weight: 700; padding: 8px 18px; border-radius: 30px; font-family: 'Barlow', sans-serif; text-transform: uppercase; }
+
+  /* overlay */
+  .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(255,255,255,0.85); backdrop-filter: blur(6px); z-index: 1000; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
+  .loader { width: 42px; height: 42px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+  .loading-text { font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 14px; color: var(--mid); text-transform: uppercase; letter-spacing: 1px; }
+
+  .toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(16px); background: var(--dark); color: #fff; padding: 12px 22px; border-radius: 10px; font-size: 13px; font-weight: 600; opacity: 0; transition: all 0.3s; z-index: 999; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.terror { background: #dc2626; }
+
+  footer { background: var(--black); padding: 36px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-top: 3px solid var(--accent); }
+  .f-logo .logo-name { font-size: 20px; color: #fff; }
+  .f-logo .logo-tagline { color: var(--accent); }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .footer-links a { font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+  .footer-copy { font-size: 11px; color: rgba(255,255,255,0.2); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  @media (max-width: 860px) {
+    nav { padding: 0 20px; }
+    .hero { padding: 60px 20px 70px; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero::before { display: none; }
+    .hero-card { display: none; }
+    .phases-slide { padding: 60px 20px; }
+    .phases-row { grid-template-columns: 1fr 1fr; }
+    .phases-row::before { display: none; }
+    .g-strip { padding: 40px 20px; }
+    .g-inner { flex-direction: column; align-items: flex-start; }
+    .form-section { padding: 60px 20px 80px; }
+    .form-body { padding: 24px 20px; }
+    .fc-header { padding: 20px; }
+    .frow { grid-template-columns: 1fr; }
+    .rgrid.c2 { grid-template-columns: 1fr 1fr; }
+    .rgrid.c3 { grid-template-columns: 1fr 1fr; }
+    footer { padding: 28px 20px; flex-direction: column; align-items: flex-start; }
+    .fnav { flex-direction: column-reverse; }
+    .btn-back-f, .btn-next-f { width: 100%; justify-content: center; }
+    .slide-header { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 540px) {
+    .phases-row { grid-template-columns: 1fr; }
+    .nav-cta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loader"></div>
+  <div class="loading-text">Submitting Application…</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo-wrap">
+    <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#e8421a"/>
+          <stop offset="100%" style="stop-color:#222"/>
+        </linearGradient>
+      </defs>
+      <circle cx="50" cy="50" r="46" fill="none" stroke="url(#rg)" stroke-width="6"/>
+      <rect x="30" y="22" width="10" height="56" rx="2" fill="#1a1a1a"/>
+      <polygon points="40,50 68,22 60,22 36,47" fill="#e8421a"/>
+      <polygon points="40,50 68,78 60,78 36,53" fill="#1a1a1a"/>
+    </svg>
+    <div class="logo-text-block">
+      <div class="logo-name">KRUTANIC</div>
+      <div class="logo-tagline">A Ladder For Brighter Future</div>
+    </div>
+  </a>
+  <div class="nav-right">
+    <!-- FIX 1: Replaced emoji with animated dot for reliable cross-platform rendering -->
+    <div class="nav-badge"><span class="nav-badge-dot"></span> 2026 Cohort Open</div>
+    <a href="#enroll" class="nav-cta">Apply Now →</a>
+  </div>
+</nav>
+
+<!-- SLIDE 1: HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">⚡ Placement Acceleration Program</div>
+      <h1 class="hero-title">
+        6-Month Advanced<br>
+        Training &<br>
+        <span class="ora">100% Placement<br>Guarantee</span>
+      </h1>
+      <p class="hero-desc">From learner to industry professional in 6 structured months. Real projects, real internships, real job offers — or your money back.</p>
+      <div class="hero-actions">
+        <a href="#enroll" class="btn-hero">🚀 Secure Your Seat</a>
+        <div class="hero-note">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><path d="M7 4v3l2 1.5" stroke="rgba(255,255,255,0.3)" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Limited seats per cohort
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hc-title">Program Highlights</div>
+      <div class="hc-row"><div class="hc-icon">🏆</div><div class="hc-t"><strong>100% Placement Rate</strong><span>Guaranteed or refunded</span></div></div>
+      <div class="hc-row"><div class="hc-icon">📈</div><div class="hc-t"><strong>40% Avg Salary Hike</strong><span>Post-program verified data</span></div></div>
+      <div class="hc-row"><div class="hc-icon">🏢</div><div class="hc-t"><strong>Fortune 500 Partners</strong><span>Direct top-tier hiring access</span></div></div>
+      <div class="hc-div"></div>
+      <div class="stat-grid">
+        <div class="stat-box"><div class="stat-n">6</div><div class="stat-l">Months</div></div>
+        <div class="stat-box"><div class="stat-n">500+</div><div class="stat-l">Companies</div></div>
+        <div class="stat-box"><div class="stat-n">4</div><div class="stat-l">Phases</div></div>
+        <div class="stat-box"><div class="stat-n">1:1</div><div class="stat-l">Mentorship</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 2: PHASES -->
+<section class="phases-slide">
+  <div class="slide-inner">
+    <div class="slide-header">
+      <div>
+        <div class="slide-label">Program Architecture</div>
+        <div class="slide-title">Four Phases.<br><span>One Career Transformation.</span></div>
+      </div>
+      <a href="#enroll" class="btn-dark">Apply Now →</a>
+    </div>
+
+    <div class="phases-row">
+      <div class="ph-col">
+        <div class="ph-dot">Phase<br>I<br>M1–3</div>
+        <div class="ph-card">
+          <div class="ph-month">Months 1 – 3</div>
+          <div class="ph-name">Advanced Core Training</div>
+          <div class="ph-desc">Rigorous live sessions building technical foundations and industry-grade understanding.</div>
+          <ul class="ph-bullets">
+            <li>Live sessions 5 days/week</li>
+            <li>Industry-aligned curriculum</li>
+            <li>1:1 academic mentoring</li>
+            <li>Structured evaluations</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ph-col">
+        <div class="ph-dot">Phase<br>II<br>M 4</div>
+        <div class="ph-card">
+          <div class="ph-month">Month 4</div>
+          <div class="ph-name">Practical Implementation</div>
+          <div class="ph-desc">Transition from theory to execution with real corporate workflow simulations.</div>
+          <ul class="ph-bullets">
+            <li>Tool-oriented execution</li>
+            <li>Industry-grade assignments</li>
+            <li>Resume structuring</li>
+            <li>Interview groundwork</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ph-col">
+        <div class="ph-dot">Phase<br>III<br>M 5</div>
+        <div class="ph-card">
+          <div class="ph-month">Month 5</div>
+          <div class="ph-name">Corporate Internship</div>
+          <div class="ph-desc">Mentored internship with real-time project exposure at Krutanic partner companies.</div>
+          <ul class="ph-bullets">
+            <li>Individual & team projects</li>
+            <li>Professional review</li>
+            <li>Performance evaluation</li>
+            <li>Formal certification</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ph-col">
+        <div class="ph-dot">Phase<br>IV<br>M 6</div>
+        <div class="ph-card">
+          <div class="ph-month">Month 6</div>
+          <div class="ph-name">Placement Acceleration</div>
+          <div class="ph-desc">Dedicated career transition support until you land your target job offer.</div>
+          <ul class="ph-bullets">
+            <li>Mock interviews (Tech & HR)</li>
+            <li>Resume refinement</li>
+            <li>Direct job scheduling</li>
+            <li>Offer negotiation help</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE STRIP -->
+<section class="g-strip">
+  <div class="g-inner">
+    <div class="g-left">
+      <div class="g-shield">🛡️</div>
+      <div class="g-copy">
+        <h2>100% Placement Guarantee</h2>
+        <p>Every learner who completes the program gets dedicated placement support, direct referrals to Fortune 500 hiring partners, and full mock interview preparation. We don't stop until you're placed.</p>
+      </div>
+    </div>
+    <div class="g-badges">
+      <div class="g-badge">✓ 100% Placement</div>
+      <div class="g-badge">✓ Real Internship</div>
+      <div class="g-badge">✓ Certified</div>
+      <div class="g-badge">✓ 1:1 Mentorship</div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="enroll">
+  <div class="form-section-inner">
+    <div class="form-section-header">
+      <div class="slide-label" style="justify-content:center;">Secure Your Seat</div>
+      <h2>Apply for the <span>2026 Cohort</span></h2>
+      <p>Fill both steps below. Our advisor will contact you within 24 hours.</p>
+    </div>
+
+    <div class="form-card">
+      <div class="fc-header">
+        <div class="fc-header-left">
+          <h3>Enrollment Application</h3>
+          <p>Krutanic · 6-Month Placement Acceleration Program</p>
+        </div>
+        <div class="seats-badge">● Seats Filling Fast</div>
+      </div>
+
+      <div class="step-bar">
+        <div class="step-tab active" id="tab1">
+          <div class="snum" id="snum1">1</div>
+          <div><div class="stab-label">Step 1 of 2</div><div class="stab-name">Your Profile</div></div>
+        </div>
+        <div class="step-tab" id="tab2">
+          <div class="snum" id="snum2">2</div>
+          <div><div class="stab-label">Step 2 of 2</div><div class="stab-name">Career Goals</div></div>
+        </div>
+      </div>
+
+      <div class="form-body">
+
+        <!-- STEP 1 -->
+        <div class="f-step active" id="step1">
+          <div class="sec-title">👤 Profile Details</div>
+
+          <div class="frow">
+            <div class="fg"><label class="fl">Full Name <em>*</em></label><input type="text" id="fullName" placeholder="Enter your full name"><div class="fe" id="e-fullName">Please enter your full name</div></div>
+            <div class="fg"><label class="fl">Personal Email ID <em>*</em></label><input type="email" id="email" placeholder="example@email.com"><div class="fe" id="e-email">Please enter a valid email</div></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label class="fl">Contact Number <em>*</em></label><input type="tel" id="phone" placeholder="+91 XXXXX XXXXX"><div class="fe" id="e-phone">Please enter your contact number</div></div>
+            <div class="fg"><label class="fl">WhatsApp Number <em>*</em></label><input type="tel" id="whatsapp" placeholder="+91 XXXXX XXXXX"><div class="fe" id="e-whatsapp">Please enter your WhatsApp number</div></div>
+          </div>
+          <div class="frow full">
+            <div class="fg">
+              <label class="fl">Current Situation <em>*</em></label>
+              <select id="situation">
+                <option value="">Select your status</option>
+                <option>Recent Graduate (0–1 year)</option>
+                <option>Working Professional (1–5 years)</option>
+                <option>Currently Unemployed</option>
+                <option>Looking for a Career Switch</option>
+              </select>
+              <div class="fe" id="e-situation">Please select your situation</div>
+            </div>
+          </div>
+
+          <!-- Multi-select language checkboxes -->
+          <div class="rl">Preferred Spoken Language <em>*</em> <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;">(select all that apply)</span></div>
+          <div class="rgrid c3">
+            <div class="rc"><input type="checkbox" name="language" id="len" value="English"><label for="len">English</label></div>
+            <div class="rc"><input type="checkbox" name="language" id="lhi" value="Hindi"><label for="lhi">Hindi</label></div>
+            <div class="rc"><input type="checkbox" name="language" id="lte" value="Telugu"><label for="lte">Telugu</label></div>
+            <div class="rc"><input type="checkbox" name="language" id="lta" value="Tamil"><label for="lta">Tamil</label></div>
+            <div class="rc"><input type="checkbox" name="language" id="lka" value="Kannada"><label for="lka">Kannada</label></div>
+            <div class="rc"><input type="checkbox" name="language" id="lma" value="Malayalam"><label for="lma">Malayalam</label></div>
+            <div class="rc"><input type="checkbox" name="language" id="lmr" value="Marathi"><label for="lmr">Marathi</label></div>
+            <div class="rc"><input type="checkbox" name="language" id="lgu" value="Gujarati"><label for="lgu">Gujarati</label></div>
+            <div class="rc"><input type="checkbox" name="language" id="lbn" value="Bengali"><label for="lbn">Bengali</label></div>
+          </div>
+          <div class="fe" id="e-language">Please select at least one language</div>
+
+          <div class="fnav">
+            <div></div>
+            <button class="btn-next-f" onclick="goStep2()">Continue to Step 2 →</button>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="f-step" id="step2">
+          <div class="sec-title">🎯 Career Goals & Readiness</div>
+
+          <div class="frow full">
+            <div class="fg">
+              <label class="fl">Primary Career Goal <em>*</em></label>
+              <select id="careerGoal">
+                <option value="">Select your goal</option>
+                <option>Get my first job</option>
+                <option>Switch to a better role / company</option>
+                <option>Increase salary / package</option>
+                <option>Build strong practical skills</option>
+              </select>
+              <div class="fe" id="e-careerGoal">Please select a career goal</div>
+            </div>
+          </div>
+          <div class="frow full">
+            <div class="fg">
+              <label class="fl">Current Challenge <em>*</em></label>
+              <select id="challenges">
+                <option value="">Select your challenge</option>
+                <option>Not getting interview calls</option>
+                <option>Lack of practical / industry skills</option>
+                <option>Stuck in low-paying job</option>
+                <option>No career direction</option>
+              </select>
+              <div class="fe" id="e-challenges">Please select a challenge</div>
+            </div>
+          </div>
+
+          <!-- FIX 3: Replaced open textarea with structured dropdown options -->
+          <div class="frow full">
+            <div class="fg">
+              <label class="fl">Why are you interested in this program? <em>*</em></label>
+              <select id="whyInterested">
+                <option value="">Select the best reason</option>
+                <option>I want guaranteed placement support to land my first job</option>
+                <option>I need structured mentorship to bridge my skill gaps</option>
+                <option>I want real internship experience with top companies</option>
+                <option>I'm looking for a career switch with a higher salary</option>
+                <option>I want industry-recognized certification to boost my profile</option>
+                <option>I need a clear, guided roadmap to reach my career goals</option>
+              </select>
+              <div class="fe" id="e-whyInterested">Please select an option</div>
+            </div>
+          </div>
+
+          <div class="frow full">
+            <div class="fg">
+              <label class="fl">Domain of Interest <em>*</em></label>
+              <select id="domain">
+                <option value="">Select a domain</option>
+                <option>Software Engineering</option>
+                <option>Data Analytics & Business Intelligence</option>
+                <option>Digital Marketing & Growth Accelerator</option>
+              </select>
+              <div class="fe" id="e-domain">Please select a domain</div>
+            </div>
+          </div>
+
+          <div class="rl">Career Commitment Level <em>*</em></div>
+          <div class="rgrid c2">
+            <div class="rc"><input type="radio" name="seriousness" id="s1" value="100% committed"><label for="s1">💪 100% Committed</label></div>
+            <div class="rc"><input type="radio" name="seriousness" id="s2" value="Very serious"><label for="s2">🔥 Very Serious</label></div>
+            <div class="rc"><input type="radio" name="seriousness" id="s3" value="Considering"><label for="s3">🤔 Considering</label></div>
+            <div class="rc"><input type="radio" name="seriousness" id="s4" value="Just exploring"><label for="s4">👀 Just Exploring</label></div>
+          </div>
+          <div class="fe" id="e-seriousness">Please select your commitment level</div>
+
+          <div class="rl">Ready to invest in your growth? <em>*</em></div>
+          <div class="rgrid c2">
+            <div class="rc"><input type="radio" name="investReady" id="i1" value="Yes, ready"><label for="i1">✅ Yes, I'm ready</label></div>
+            <div class="rc"><input type="radio" name="investReady" id="i2" value="Need more details"><label for="i2">📋 Need more details</label></div>
+          </div>
+          <div class="fe" id="e-investReady">Please select an option</div>
+
+          <div class="frow full" style="margin-top:4px;">
+            <div class="fg">
+              <label class="fl">When are you planning to start? <em>*</em></label>
+              <select id="startWhen">
+                <option value="">Select timeline</option>
+                <option>Immediately (Ready to start now)</option>
+                <option>Within the next 2 weeks</option>
+                <option>Within 1 month</option>
+                <option>Just exploring for now</option>
+              </select>
+              <div class="fe" id="e-startWhen">Please select a start timeline</div>
+            </div>
+          </div>
+          <div class="frow full">
+            <div class="fg">
+              <label class="fl">Why is this program important for you? <em>*</em></label>
+              <select id="whyImportant">
+                <option value="">Select an option</option>
+                <option>I want practical skills and job-readiness ASAP</option>
+                <option>I struggle getting opportunities and need guidance</option>
+                <option>I want to switch / grow with better roles & salary</option>
+                <option>I'm serious about transformation with right mentorship</option>
+              </select>
+              <div class="fe" id="e-whyImportant">Please select an option</div>
+            </div>
+          </div>
+
+          <div class="rl">Preferred Time to Connect <em>*</em></div>
+          <div class="rgrid c3">
+            <div class="rc"><input type="radio" name="timeConnect" id="t1" value="Morning (11am–2pm)"><label for="t1">Morning<br><small style="font-size:11px;color:#bbb;">11am–2pm</small></label></div>
+            <div class="rc"><input type="radio" name="timeConnect" id="t2" value="Afternoon (3pm–5:30pm)"><label for="t2">Afternoon<br><small style="font-size:11px;color:#bbb;">3pm–5:30pm</small></label></div>
+            <div class="rc"><input type="radio" name="timeConnect" id="t3" value="Evening (6pm–8pm)"><label for="t3">Evening<br><small style="font-size:11px;color:#bbb;">6pm–8pm</small></label></div>
+          </div>
+          <div class="fe" id="e-timeConnect">Please select a preferred time</div>
+
+          <!-- Paid program acknowledgement checkbox above submit -->
+          <div class="paid-ack-wrap">
+            <label class="ack-check-label">
+              <input type="checkbox" id="paidAck">
+              <span class="ack-custom-check"></span>
+              <span>I understand this is a paid program and I'm ready to invest in my career growth.</span>
+            </label>
+            <div class="fe" id="e-paidAck">Please acknowledge to proceed</div>
+          </div>
+
+          <button class="btn-submit-f" onclick="submitForm()" id="submitBtn">
+            🚀 Submit My Application — Secure My Seat
+          </button>
+          <div style="text-align:center; margin-top:14px;">
+            <button class="btn-back-f" onclick="goStep1()">← Back to Step 1</button>
+          </div>
+        </div>
+
+      </div><!-- /form-body -->
+
+      <!-- SUCCESS -->
+      <div class="success-view" id="successView">
+        <div class="suc-icon">✓</div>
+        <div class="suc-title">Application Received!</div>
+        <div class="suc-sub">Thank you for applying to the Krutanic Placement Acceleration Program. Our advisor will contact you within <strong>24 hours</strong> on your preferred time slot.</div>
+        <div class="suc-tag">✅ Saved Securely · No Spam Promise</div>
+        <p style="margin-top:18px; font-size:13px; color:var(--muted);">Visit <a href="https://www.krutanic.com/Advance" target="_blank" style="color:var(--accent); font-weight:700; text-decoration:none;">krutanic.com/Advance</a> for more details.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="logo-wrap f-logo" style="text-decoration:none;">
+    <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="rg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#e8421a"/><stop offset="100%" style="stop-color:#888"/></linearGradient></defs>
+      <circle cx="50" cy="50" r="46" fill="none" stroke="url(#rg2)" stroke-width="6"/>
+      <rect x="30" y="22" width="10" height="56" rx="2" fill="#fff"/>
+      <polygon points="40,50 68,22 60,22 36,47" fill="#e8421a"/>
+      <polygon points="40,50 68,78 60,78 36,53" fill="#fff"/>
+    </svg>
+    <div class="logo-text-block">
+      <div class="logo-name" style="color:#fff;">KRUTANIC</div>
+      <div class="logo-tagline">A Ladder For Brighter Future</div>
+    </div>
+  </a>
+  <div class="footer-links">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+    <a href="https://www.krutanic.com/Advance" target="_blank">Placement Partners</a>
+    <a href="#">Support</a>
+  </div>
+  <div class="footer-copy">© 2026 Krutanic. Professional Ladder to Success.</div>
+</footer>
+
+<script>
+function goStep2() {
+  if (!validateStep1()) return;
+  document.getElementById('step1').classList.remove('active');
+  document.getElementById('step2').classList.add('active');
+  document.getElementById('tab1').classList.remove('active');
+  document.getElementById('tab1').classList.add('done');
+  document.getElementById('snum1').textContent = '✓';
+  document.getElementById('tab2').classList.add('active');
+  document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function goStep1() {
+  document.getElementById('step2').classList.remove('active');
+  document.getElementById('step1').classList.add('active');
+  document.getElementById('tab1').classList.remove('done');
+  document.getElementById('tab1').classList.add('active');
+  document.getElementById('snum1').textContent = '1';
+  document.getElementById('tab2').classList.remove('active');
+  document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function validateStep1() {
+  let ok = true;
+  const checks = [
+    { id:'fullName', eid:'e-fullName', fn: v => v.trim().length >= 2 },
+    { id:'email',    eid:'e-email',    fn: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+    { id:'phone',    eid:'e-phone',    fn: v => v.trim().length >= 7 },
+    { id:'whatsapp', eid:'e-whatsapp', fn: v => v.trim().length >= 7 },
+    { id:'situation',eid:'e-situation',fn: v => v !== '' },
+  ];
+  checks.forEach(c => {
+    const el = document.getElementById(c.id), err = document.getElementById(c.eid);
+    if (!c.fn(el.value)) { el.classList.add('err'); err.style.display='block'; ok=false; }
+    else { el.classList.remove('err'); err.style.display='none'; }
+  });
+  const lang = document.querySelectorAll('input[name="language"]:checked');
+  const le = document.getElementById('e-language');
+  if (!lang.length) { le.style.display='block'; ok=false; } else le.style.display='none';
+  if (!ok) showToast('Please fill all required fields.', 'terror');
+  return ok;
+}
+
+function validateStep2() {
+  let ok = true;
+  ['careerGoal','challenges','whyInterested','domain','startWhen','whyImportant'].forEach(id => {
+    const el = document.getElementById(id), err = document.getElementById('e-'+id);
+    if (!el.value) { el.classList.add('err'); err.style.display='block'; ok=false; }
+    else { el.classList.remove('err'); err.style.display='none'; }
+  });
+  ['seriousness','investReady','timeConnect'].forEach(name => {
+    const c = document.querySelector(`input[name="${name}"]:checked`);
+    const err = document.getElementById('e-'+name);
+    if (!c) { err.style.display='block'; ok=false; } else err.style.display='none';
+  });
+  // paid ack checkbox
+  const ack = document.getElementById('paidAck');
+  const ackErr = document.getElementById('e-paidAck');
+  if (!ack.checked) { ackErr.style.display='block'; document.querySelector('.ack-check-label').classList.add('err-ack'); ok=false; }
+  else { ackErr.style.display='none'; document.querySelector('.ack-check-label').classList.remove('err-ack'); }
+  if (!ok) showToast('Please fill all required fields.', 'terror');
+  return ok;
+}
+
+async function submitForm() {
+  if (!validateStep2()) return;
+  const data = {
+    timestamp: new Date().toISOString(),
+    fullName: document.getElementById('fullName').value,
+    email: document.getElementById('email').value,
+    phone: document.getElementById('phone').value,
+    whatsapp: document.getElementById('whatsapp').value,
+    situation: document.getElementById('situation').value,
+    language: [...document.querySelectorAll('input[name="language"]:checked')].map(el=>el.value).join(', '),
+    careerGoal: document.getElementById('careerGoal').value,
+    challenges: document.getElementById('challenges').value,
+    whyInterested: document.getElementById('whyInterested').value,
+    domain: document.getElementById('domain').value,
+    seriousness: document.querySelector('input[name="seriousness"]:checked')?.value,
+    investReady: document.querySelector('input[name="investReady"]:checked')?.value,
+    startWhen: document.getElementById('startWhen').value,
+    whyImportant: document.getElementById('whyImportant').value,
+    timeConnect: document.querySelector('input[name="timeConnect"]:checked')?.value,
+  };
+
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzBJ6cOyVxp08aVZvXgs8tVvbsY3cptc2-loORwl_Mm0K0J4vroF33wmKhXaKzZmU4/exec';
+
+  document.getElementById('loadingOverlay').style.display = 'flex';
+  document.getElementById('submitBtn').disabled = true;
+
+  try {
+
+      await fetch(SHEET_URL, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    document.getElementById('loadingOverlay').style.display = 'none';
+    document.getElementById('step2').style.display = 'none';
+    document.querySelector('.step-bar').style.display = 'none';
+    document.querySelector('.fc-header').style.background = '#15803d';
+    document.querySelector('.fc-header-left h3').textContent = 'Application Received!';
+    document.querySelector('.fc-header-left p').textContent = 'Our advisor will call within 24 hours.';
+    document.querySelector('.seats-badge').style.display = 'none';
+    document.getElementById('successView').style.display = 'block';
+    document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch(err) {
+    document.getElementById('loadingOverlay').style.display = 'none';
+    document.getElementById('submitBtn').disabled = false;
+    showToast('Something went wrong. Please try again.', 'terror');
+  }
+}
+
+function showToast(msg, cls='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = `toast ${cls} show`;
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+document.querySelectorAll('input, select, textarea').forEach(el => {
+  el.addEventListener('input', () => {
+    el.classList.remove('err');
+    const err = document.getElementById('e-' + el.id);
+    if (err) err.style.display = 'none';
+  });
+});
+</script>
+</body>
+</html>
