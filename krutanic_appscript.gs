@@ -18,7 +18,7 @@ const CONFIG = {
   WEBSITE:        "https://www.krutanic.com",
   ADVANCE_URL:    "https://www.krutanic.com/Advance",
   MENTORSHIP_URL: "https://www.krutanic.com/Mentorship",
-  WHATSAPP_URL:   "https://chat.whatsapp.com/YOUR_GROUP_LINK",  // ← replace
+  WHATSAPP_URL:   "https://chat.whatsapp.com/EJJJw5lXcgoCc1WAvES9fb",
   COORDINATOR:    "Dr. Mandeep Singh",
   COORD_ROLE:     "Placements Controller, Krutanic Solutions",
   COORD_PHONE:    "+91 8105954318",
@@ -45,6 +45,23 @@ function doPost(e) {
     if (!raw) return jsonResp({ status: "error", message: "No data received" });
 
     const data  = JSON.parse(raw);
+
+    // ── SECURITY & ANTI-SPAM VALIDATIONS ──────────────────────────────────────
+    const expectedToken = "KRU_SECURE_" + new Date().getFullYear();
+    const timeToFill = data.formLoadTime ? (Date.now() - data.formLoadTime) : 0;
+    
+    if (
+      data.securityToken !== expectedToken ||       // 1. Invalid or missing token
+      (data.botHoneypot && data.botHoneypot !== "") || // 2. Honeypot filled by bot
+      timeToFill < 3000 ||                          // 3. Submitted instantly (< 3s)
+      (data.fullName && /(http|www|<a)/i.test(data.fullName)) // 4. URL in Name field
+    ) {
+      Logger.log("BLOCKED SPAM/BOT. Token: " + data.securityToken + " | Honeypot: " + data.botHoneypot + " | Time: " + timeToFill);
+      // Return fake success so bots don't adapt
+      return jsonResp({ status: "ok", appId: "KRU-BLOCKED-BOT" });
+    }
+    // ─────────────────────────────────────────────────────────────────────────
+
     const appId = generateAppId();
 
     writeToSheet(data, appId);
@@ -191,7 +208,9 @@ function buildEmailHtml(data, appId, firstName) {
     @media only screen and (max-width:620px) {
       .email-wrap { width:100% !important; }
       .mobile-pad { padding:24px 18px !important; }
-      .stat-cell { display:block !important; width:100% !important; padding:8px 0 !important; }
+      .stat-cell { display:inline-block !important; width:49% !important; padding:16px 0 !important; box-sizing:border-box !important; border-bottom:1px solid rgba(255,255,255,0.2) !important; }
+      .stat-cell:nth-child(even) { border-right:none !important; }
+      .stat-cell:nth-child(3), .stat-cell:nth-child(4) { border-bottom:none !important; }
     }
   </style>
 </head>
@@ -222,31 +241,24 @@ function buildEmailHtml(data, appId, firstName) {
     <td align="center" class="mobile-pad"
       style="padding:36px 40px 28px;background:#111111;">
 
-      <!-- Logo text (image-free — better deliverability) -->
-      <table cellpadding="0" cellspacing="0" role="presentation">
+      <!-- Logo text side-by-side (matching website) -->
+      <table cellpadding="0" cellspacing="0" role="presentation" style="margin-bottom:8px;">
         <tr>
-          <td align="center">
+          <td align="right" style="padding-right:12px; vertical-align:middle;">
             <!-- K monogram -->
-            <div style="display:inline-block;width:52px;height:52px;border-radius:50%;
+            <div style="width:48px;height:48px;border-radius:50%;
                         border:2.5px solid #e8421a;background:#1a1a1a;
-                        text-align:center;line-height:52px;
-                        font-size:22px;font-weight:900;color:#e8421a;
-                        font-family:'Segoe UI',Arial,sans-serif;
-                        margin-bottom:10px;">K</div>
+                        text-align:center;line-height:48px;
+                        font-size:20px;font-weight:900;color:#e8421a;
+                        font-family:'Segoe UI',Arial,sans-serif;">K</div>
           </td>
-        </tr>
-        <tr>
-          <td align="center">
-            <span style="font-size:22px;font-weight:900;color:#ffffff;
-                         letter-spacing:3px;text-transform:uppercase;
-                         font-family:'Segoe UI',Arial,sans-serif;">KRUTANIC</span>
-          </td>
-        </tr>
-        <tr>
-          <td align="center">
-            <span style="font-size:9px;font-weight:700;color:#e8421a;
-                         letter-spacing:3px;text-transform:uppercase;
-                         font-family:'Segoe UI',Arial,sans-serif;">A Ladder For Brighter Future</span>
+          <td align="left" style="vertical-align:middle;">
+            <div style="font-size:22px;font-weight:900;color:#ffffff;
+                        letter-spacing:2px;text-transform:uppercase;
+                        font-family:'Segoe UI',Arial,sans-serif;line-height:1;">KRUTANIC</div>
+            <div style="font-size:8px;font-weight:700;color:#e8421a;
+                        letter-spacing:2.5px;text-transform:uppercase;
+                        font-family:'Segoe UI',Arial,sans-serif;margin-top:4px;">A Ladder For Brighter Future</div>
           </td>
         </tr>
       </table>
@@ -500,19 +512,27 @@ function buildEmailHtml(data, appId, firstName) {
   <tr>
     <td align="center" style="padding:24px 40px;background:#111111;
                                border-top:1px solid #222222;">
-      <!-- K monogram small -->
-      <div style="display:inline-block;width:36px;height:36px;border-radius:50%;
-                  border:2px solid #e8421a;background:#1a1a1a;
-                  text-align:center;line-height:36px;
-                  font-size:15px;font-weight:900;color:#e8421a;
-                  font-family:'Segoe UI',Arial,sans-serif;
-                  margin-bottom:10px;">K</div>
-      <div style="font-size:14px;font-weight:800;color:#ffffff;letter-spacing:3px;
-                  text-transform:uppercase;font-family:'Segoe UI',Arial,sans-serif;
-                  margin-bottom:3px;">KRUTANIC</div>
-      <div style="font-size:9px;font-weight:700;color:#e8421a;letter-spacing:2.5px;
-                  text-transform:uppercase;font-family:'Segoe UI',Arial,sans-serif;
-                  margin-bottom:16px;">A Ladder For Brighter Future</div>
+      <!-- Logo text side-by-side (matching website) -->
+      <table cellpadding="0" cellspacing="0" role="presentation" style="margin-bottom:16px;">
+        <tr>
+          <td align="right" style="padding-right:10px; vertical-align:middle;">
+            <!-- K monogram small -->
+            <div style="width:36px;height:36px;border-radius:50%;
+                        border:2px solid #e8421a;background:#1a1a1a;
+                        text-align:center;line-height:36px;
+                        font-size:15px;font-weight:900;color:#e8421a;
+                        font-family:'Segoe UI',Arial,sans-serif;">K</div>
+          </td>
+          <td align="left" style="vertical-align:middle;">
+            <div style="font-size:14px;font-weight:800;color:#ffffff;letter-spacing:2px;
+                        text-transform:uppercase;font-family:'Segoe UI',Arial,sans-serif;
+                        line-height:1;">KRUTANIC</div>
+            <div style="font-size:7px;font-weight:700;color:#e8421a;letter-spacing:2px;
+                        text-transform:uppercase;font-family:'Segoe UI',Arial,sans-serif;
+                        margin-top:2px;">A Ladder For Brighter Future</div>
+          </td>
+        </tr>
+      </table>
 
       <div style="font-size:11px;color:#555555;line-height:1.8;margin-bottom:10px;">
         <a href="${CONFIG.WEBSITE}" style="color:#888888;text-decoration:none;">${CONFIG.WEBSITE}</a>

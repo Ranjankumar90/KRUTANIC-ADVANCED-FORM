@@ -178,7 +178,7 @@
   .frow.full { grid-template-columns: 1fr; }
   .fg { display: flex; flex-direction: column; gap: 6px; }
 
-  .fl { font-size: 10.5px; font-weight: 700; color: var(--mid); text-transform: uppercase; letter-spacing: 0.8px; font-family: 'Barlow', sans-serif; }
+  .fl { font-size: 11px; font-weight: 900; color: var(--black); text-transform: uppercase; letter-spacing: 0.8px; font-family: 'Barlow', sans-serif; }
   .fl em { color: var(--accent); font-style: normal; }
 
   input[type="text"], input[type="email"], input[type="tel"], select, textarea {
@@ -191,7 +191,7 @@
   textarea { resize: vertical; min-height: 80px; }
 
   /* radio cards */
-  .rl { font-size: 10.5px; font-weight: 700; color: var(--mid); text-transform: uppercase; letter-spacing: 0.8px; font-family: 'Barlow', sans-serif; margin-bottom: 9px; margin-top: 4px; }
+  .rl { font-size: 11px; font-weight: 900; color: var(--black); text-transform: uppercase; letter-spacing: 0.8px; font-family: 'Barlow', sans-serif; margin-bottom: 9px; margin-top: 4px; }
   .rl em { color: var(--accent); font-style: normal; }
   .rgrid { display: grid; gap: 8px; margin-bottom: 14px; }
   .rgrid.c2 { grid-template-columns: 1fr 1fr; }
@@ -212,7 +212,7 @@
   .paid-ack-box { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
   .paid-ack-box p { font-size: 12.5px; color: var(--mid); line-height: 1.5; }
   .paid-ack-box p strong { color: var(--dark); }
-  .ack-check-label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 13px; color: var(--dark); font-weight: 500; line-height: 1.4; }
+  .ack-check-label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 14px; color: var(--accent); font-weight: 800; line-height: 1.4; }
   .ack-check-label input[type="checkbox"] { display: none; }
   .ack-custom-check { width: 18px; height: 18px; min-width: 18px; border: 2px solid var(--border); border-radius: 4px; background: #fff; transition: all 0.2s; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
   .ack-check-label input:checked ~ .ack-custom-check { background: var(--accent); border-color: var(--accent); }
@@ -263,6 +263,8 @@
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes spin { to { transform: rotate(360deg); } }
   @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .marquee-wrap { width: 100%; margin-bottom: 28px; padding: 12px 0; background: rgba(232,66,26,0.05); border: 1.5px solid rgba(232,66,26,0.2); border-radius: 12px; overflow: hidden; }
+  .marquee-text { font-family: 'Barlow', sans-serif; font-weight: 800; color: var(--accent); font-size: 15px; text-transform: uppercase; letter-spacing: 1.5px; }
 
   @media (max-width: 860px) {
     nav { padding: 0 20px; }
@@ -458,6 +460,9 @@
 <section class="form-section" id="enroll">
   <div class="form-section-inner">
     <div class="form-section-header">
+      <div class="marquee-wrap">
+        <marquee direction="left" class="marquee-text" scrollamount="8">Super 30 Career Cohort Applications Now Open</marquee>
+      </div>
       <div class="slide-label" style="justify-content:center;">Secure Your Seat</div>
       <h2>Apply for the <span>2026 Cohort</span></h2>
       <p>Fill both steps below. Our advisor will contact you within 24 hours.</p>
@@ -487,6 +492,11 @@
 
         <!-- STEP 1 -->
         <div class="f-step active" id="step1">
+          <!-- Anti-spam Honeypot -->
+          <div style="position: absolute; left: -5000px; top: -5000px;" aria-hidden="true">
+            <label for="company_website">Website</label>
+            <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+          </div>
           <div class="sec-title">👤 Profile Details</div>
 
           <div class="frow">
@@ -534,7 +544,7 @@
 
         <!-- STEP 2 -->
         <div class="f-step" id="step2">
-          <div class="sec-title">🎯 Career Goals & Readiness</div>
+          <div class="sec-title">Career Goals & Readiness</div>
 
           <div class="frow full">
             <div class="fg">
@@ -595,17 +605,17 @@
 
           <div class="rl">Career Commitment Level <em>*</em></div>
           <div class="rgrid c2">
-            <div class="rc"><input type="radio" name="seriousness" id="s1" value="100% committed"><label for="s1">💪 100% Committed</label></div>
-            <div class="rc"><input type="radio" name="seriousness" id="s2" value="Very serious"><label for="s2">🔥 Very Serious</label></div>
-            <div class="rc"><input type="radio" name="seriousness" id="s3" value="Considering"><label for="s3">🤔 Considering</label></div>
-            <div class="rc"><input type="radio" name="seriousness" id="s4" value="Just exploring"><label for="s4">👀 Just Exploring</label></div>
+            <div class="rc"><input type="radio" name="seriousness" id="s1" value="100% committed"><label for="s1">100% Committed</label></div>
+            <div class="rc"><input type="radio" name="seriousness" id="s2" value="Very serious"><label for="s2">Very Serious</label></div>
+            <div class="rc"><input type="radio" name="seriousness" id="s3" value="Considering"><label for="s3">Considering</label></div>
+            <div class="rc"><input type="radio" name="seriousness" id="s4" value="Just exploring"><label for="s4">Just Exploring</label></div>
           </div>
           <div class="fe" id="e-seriousness">Please select your commitment level</div>
 
           <div class="rl">Ready to invest in your growth? <em>*</em></div>
           <div class="rgrid c2">
-            <div class="rc"><input type="radio" name="investReady" id="i1" value="Yes, ready"><label for="i1">✅ Yes, I'm ready</label></div>
-            <div class="rc"><input type="radio" name="investReady" id="i2" value="Need more details"><label for="i2">📋 Need more details</label></div>
+            <div class="rc"><input type="radio" name="investReady" id="i1" value="Yes, ready"><label for="i1">Yes, I'm ready</label></div>
+            <div class="rc"><input type="radio" name="investReady" id="i2" value="Need more details"><label for="i2">Need more details</label></div>
           </div>
           <div class="fe" id="e-investReady">Please select an option</div>
 
@@ -655,7 +665,7 @@
           </div>
 
           <button class="btn-submit-f" onclick="submitForm()" id="submitBtn">
-            🚀 Submit My Application — Secure My Seat
+            Submit My Application — Secure My Seat
           </button>
           <div style="text-align:center; margin-top:14px;">
             <button class="btn-back-f" onclick="goStep1()">← Back to Step 1</button>
@@ -701,6 +711,8 @@
 </footer>
 
 <script>
+const KRU_FORM_INIT_TIME = Date.now();
+
 function goStep2() {
   if (!validateStep1()) return;
   document.getElementById('step1').classList.remove('active');
@@ -767,6 +779,9 @@ function validateStep2() {
 async function submitForm() {
   if (!validateStep2()) return;
   const data = {
+    formLoadTime: KRU_FORM_INIT_TIME,
+    botHoneypot: document.getElementById('company_website')?.value || '',
+    securityToken: "KRU_SECURE_" + new Date().getFullYear(),
     timestamp: new Date().toISOString(),
     fullName: document.getElementById('fullName').value,
     email: document.getElementById('email').value,
@@ -785,7 +800,7 @@ async function submitForm() {
     timeConnect: document.querySelector('input[name="timeConnect"]:checked')?.value,
   };
 
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzBJ6cOyVxp08aVZvXgs8tVvbsY3cptc2-loORwl_Mm0K0J4vroF33wmKhXaKzZmU4/exec';
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyelYSHt540sEM5pBOaffU8ineKo5q5nNAg4MxlMr3wYICEl7Xi_YylqnHpE8ORpDkC/exec';
 
   document.getElementById('loadingOverlay').style.display = 'flex';
   document.getElementById('submitBtn').disabled = true;
